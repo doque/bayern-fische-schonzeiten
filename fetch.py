@@ -3,10 +3,12 @@ import json
 import requests
 import time
 import hashlib
+import random
 from fpdf import FPDF
 from PIL import Image
 from io import BytesIO
 from ddgs import DDGS
+from PIL import ImageChops, ImageStat
 
 # Lade JSON-Daten
 with open("fische.json", encoding="utf-8") as f:
@@ -19,22 +21,36 @@ def image_hash(img):
     return hashlib.sha256(img.tobytes()).hexdigest()
 
 # DuckDuckGo Bildsuche mit Mindestgröße und Duplikatprüfung
-def fetch_image(query, path, force_alternate=False):
-    if os.path.exists(path) and not force_alternate:
-        return
+def image_hash(img):
+    return hashlib.sha256(img.tobytes()).hexdigest()
 
+def image_diff(img1, img2):
+    diff = ImageChops.difference(img1, img2)
+    stat = ImageStat.Stat(diff)
+    mse = sum([v**2 for v in stat.mean]) / len(stat.mean)
+    return mse
+
+def fetch_image(query, path, force_alternate=False):
+    must_replace = force_alternate
+
+    existing_img = None
     existing_hash = None
     if os.path.exists(path):
         try:
             existing_img = Image.open(path).convert("RGB")
             existing_hash = image_hash(existing_img)
         except:
-            pass
+            existing_img = None
+            existing_hash = None
+        if not must_replace:
+            return  # not in shit.txt → skip
 
     for attempt in range(3):
         try:
             with DDGS() as ddgs:
                 results = list(ddgs.images(query + " Fisch", max_results=10))
+                random.shuffle(results)  # 💡 Shuffle for variety
+
                 for r in results:
                     try:
                         img_data = requests.get(r["image"], timeout=10).content
@@ -43,20 +59,28 @@ def fetch_image(query, path, force_alternate=False):
                         if img.width < 500 or img.height < 300:
                             continue
 
-                        candidate_hash = image_hash(img)
-                        if not force_alternate and existing_hash and candidate_hash == existing_hash:
+                        if existing_hash and image_hash(img) == existing_hash:
+                            print(f"{query}: identisches Bild – übersprungen")
                             continue
+
+                        if existing_img:
+                            mse = image_diff(img, existing_img)
+                            if mse < 10:
+                                print(f"{query}: zu ähnlich (MSE={mse:.2f}) – übersprungen")
+                                continue
 
                         img.save(path)
                         print(f"✅ {query}: Neues Bild gespeichert")
                         return
-                    except:
+                    except Exception as inner:
                         continue
-                raise Exception("Kein geeignetes neues Bild gefunden.")
+
+                raise Exception("Kein ausreichendes Bild gefunden.")
         except Exception as e:
             print(f"{query}: Fehler – Versuch {attempt+1}/3 – {e}")
             time.sleep(10 * (attempt + 1))
-    print(f"⚠️ {query}: Kein Bild gefunden.")
+
+    print(f"⚠️ {query}: Kein neues Bild gefunden.")
 
 # shit.txt laden
 shitlist = []

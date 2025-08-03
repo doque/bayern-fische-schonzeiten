@@ -2,39 +2,23 @@ import os
 import json
 import requests
 import time
+import hashlib
 from fpdf import FPDF
 from PIL import Image
 from io import BytesIO
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 # Lade JSON-Daten
-with open("bayern_fisch_schonzeiten_alle_80.json", encoding="utf-8") as f:
+with open("fische.json", encoding="utf-8") as f:
     data = json.load(f)
 
-# Bildordner
 os.makedirs("fisch_bilder", exist_ok=True)
 
-# Unicode-sichere Textbereinigung für Standard-Font
-def sanitize(text):
-    return (
-        text.replace("–", "-")
-            .replace("„", '"')
-            .replace("“", '"')
-            .replace("’", "'")
-            .replace("…", "...")
-            .replace("ß", "ss")
-            .replace("ä", "ae")
-            .replace("ö", "oe")
-            .replace("ü", "ue")
-    )
-
-# Bildabruf mit optionalem 2. Ergebnis
-import hashlib
-
+# Hash zum Vergleich von Bildern
 def image_hash(img):
-    """Returns SHA256 hash of image bytes"""
     return hashlib.sha256(img.tobytes()).hexdigest()
 
+# DuckDuckGo Bildsuche mit Mindestgröße und Duplikatprüfung
 def fetch_image(query, path, force_alternate=False):
     if os.path.exists(path) and not force_alternate:
         return
@@ -44,103 +28,89 @@ def fetch_image(query, path, force_alternate=False):
         try:
             existing_img = Image.open(path).convert("RGB")
             existing_hash = image_hash(existing_img)
-        except Exception:
-            existing_hash = None
+        except:
+            pass
 
-    base_delay = 10
-    attempts = 3
-    for attempt in range(attempts):
+    for attempt in range(3):
         try:
             with DDGS() as ddgs:
                 results = list(ddgs.images(query + " Fisch", max_results=10))
-
-                for i, r in enumerate(results):
-                    url = r["image"]
+                for r in results:
                     try:
-                        img_data = requests.get(url, timeout=10).content
+                        img_data = requests.get(r["image"], timeout=10).content
                         img = Image.open(BytesIO(img_data)).convert("RGB")
 
                         if img.width < 500 or img.height < 300:
-                            print(f"{query} [{i+1}]: Bild zu klein ({img.width}x{img.height})")
                             continue
 
                         candidate_hash = image_hash(img)
-                        if existing_hash and candidate_hash == existing_hash:
-                            print(f"{query} [{i+1}]: Bild identisch – übersprungen")
+                        if not force_alternate and existing_hash and candidate_hash == existing_hash:
                             continue
 
                         img.save(path)
-                        print(f"✅ {query}: Neues Bild gespeichert [{i+1}] ({img.width}x{img.height})")
+                        print(f"✅ {query}: Neues Bild gespeichert")
                         return
-                    except Exception as inner_e:
-                        print(f"{query} [{i+1}]: Fehlerhaftes Bild – {inner_e}")
+                    except:
                         continue
-
-                raise Exception("Kein geeignetes/neues Bild gefunden.")
-
+                raise Exception("Kein geeignetes neues Bild gefunden.")
         except Exception as e:
-            delay = base_delay * (attempt + 1)
-            print(f"Fehler bei {query} (Versuch {attempt+1}/3): {e} – warte {delay}s")
-            time.sleep(delay)
+            print(f"{query}: Fehler – Versuch {attempt+1}/3 – {e}")
+            time.sleep(10 * (attempt + 1))
+    print(f"⚠️ {query}: Kein Bild gefunden.")
 
-    print(f"⚠️ Bild für {query} nach 3 Versuchen übersprungen.")
-
-# Lade shit.txt
-shitlist_path = "shit.txt"
-if os.path.exists(shitlist_path):
-    with open(shitlist_path, encoding="utf-8") as f:
+# shit.txt laden
+shitlist = []
+if os.path.exists("shit.txt"):
+    with open("shit.txt", encoding="utf-8") as f:
         shitlist = [line.strip() for line in f if line.strip()]
-else:
-    shitlist = []
-
 replaced = []
 
-# PDF Setup
+# PDF-Setup
 pdf = FPDF("P", "mm", "A4")
+pdf.set_auto_page_break(False)
+pdf.add_font("SF", "", "/System/Library/Fonts/Supplemental/Arial Unicode.ttf")
+pdf.set_font("SF", size=14)
+
 card_w, card_h = 90, 60
 margin_x, margin_y = 10, 10
 
-# Karteikarten erzeugen (8er-Gruppen)
+# Karteikarten generieren
 for i in range(0, len(data), 8):
     batch = data[i:i+8]
 
-    # Seite: Bilder
+    # Vorderseite
     pdf.add_page()
     for idx, entry in enumerate(batch):
         row, col = divmod(idx, 2)
         x = margin_x + col * (card_w + 10)
         y = margin_y + row * (card_h + 10)
         img_path = f"fisch_bilder/{entry['question']}.jpg"
-
         force_alt = entry["question"] in shitlist
         fetch_image(entry["question"], img_path, force_alternate=force_alt)
         if force_alt and os.path.exists(img_path):
             replaced.append(entry["question"])
-
         if os.path.exists(img_path):
             pdf.image(img_path, x+2, y+2, w=card_w-4, h=card_h-4)
         pdf.rect(x, y, card_w, card_h)
 
-    # Seite: Rückseiten
+    # Rückseite
     pdf.add_page()
-    pdf.set_font("Helvetica", size=10)
     for idx, entry in enumerate(batch):
         row, col = divmod(idx, 2)
         x = margin_x + col * (card_w + 10)
         y = margin_y + row * (card_h + 10)
         pdf.set_xy(x + 2, y + 2)
-        pdf.multi_cell(card_w - 4, 5, sanitize(f"{entry['question']}\n\n{entry['answer']}"))
+        pdf.multi_cell(card_w - 4, 7, f"{entry['question']}\n\n{entry['answer']}")
         pdf.rect(x, y, card_w, card_h)
 
-# Speichern
+# PDF speichern
 pdf.output("fisch_karteikarten.pdf")
 print("✅ PDF erstellt: fisch_karteikarten.pdf")
 
-# shit.txt aktualisieren
+# shit.txt bereinigen
 if replaced:
-    remaining = [s for s in shitlist if s not in replaced]
-    with open(shitlist_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(remaining))
-    print(f"🧽 Aktualisierte shit.txt (entfernt: {', '.join(replaced)})")
-else:
-    print("ℹ️ Keine Einträge aus shit.txt ersetzt.")
+    with open("shit.txt", "w", encoding="utf-8") as f:
+        for name in shitlist:
+            if name not in replaced:
+                f.write(name + "\n")
+    print(f"🧽 shit.txt bereinigt: {', '.join(replaced)}")

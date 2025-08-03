@@ -1,0 +1,322 @@
+[
+  {
+    "question": "Aal",
+    "answer": "Schonzeit: 01.10.–31.12., Mindestmaß: 50 cm, Einzugsgebiet: E/R/W. Schlangenförmig, nachtaktiv, wandert zur Fortpflanzung ins Meer."
+  },
+  {
+    "question": "Ammersee-Kaulbarsch",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Endemisch im Ammersee, kleiner bodennaher Raubfisch."
+  },
+  {
+    "question": "Aitel (Döbel)",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Dicklippig, kräftiger Körper, Allesfresser."
+  },
+  {
+    "question": "Äsche",
+    "answer": "Schonzeit: 01.01.–30.04., Mindestmaß: 35 cm, Einzugsgebiet: D/E/R/W. Bunte große Rückenflosse, lebt in sauberen Fließgewässern."
+  },
+  {
+    "question": "Atlantischer Lachs",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Wanderfisch, silbrig mit kleinen Punkten."
+  },
+  {
+    "question": "Bachforelle",
+    "answer": "Schonzeit: 01.10.–15.03., Mindestmaß: 26 cm, Einzugsgebiet: D/E/R/W. Rote Punkte mit hellem Hof, typische Forellenform."
+  },
+  {
+    "question": "Bachsaibling",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Farbig gefleckt, rot-orange Unterseite."
+  },
+  {
+    "question": "Balkan-Goldsteinbeißer",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Bodenbewohner mit goldgelber Zeichnung."
+  },
+  {
+    "question": "Barbe",
+    "answer": "Schonzeit: 01.05.–30.06., Mindestmaß: 40 cm, Einzugsgebiet: D/E/R/W. Langgestreckt, mit Barteln, bodennah lebend."
+  },
+  {
+    "question": "Bitterling",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Kleine Cyprinide, legt Eier in Muscheln ab."
+  },
+  {
+    "question": "Brachse",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Hochrückig, silbrig, häufig in Stillgewässern."
+  },
+  {
+    "question": "Elritze",
+    "answer": "Schonzeit: 01.05.–30.06., kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleiner Schwarmfisch, oft in Quellbächen."
+  },
+  {
+    "question": "Flussbarsch",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Erkennbar an dunklen Streifen und roter Afterflosse."
+  },
+  {
+    "question": "Frauennerfling",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Seltene Cyprinide, lebt in klaren Flüssen."
+  },
+  {
+    "question": "Giebel",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Verwechslungsgefahr mit Karausche, tiefer Körper."
+  },
+  {
+    "question": "Gründling",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleiner Bodenfisch, dunkel gepunktet."
+  },
+  {
+    "question": "Donaukaulbarsch",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Selten, unterscheidet sich vom Kaulbarsch durch Körperform."
+  },
+  {
+    "question": "Donau-Steinbeißer",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Kleiner Bodenbewohner, Welsverwandt."
+  },
+  {
+    "question": "Donaustromgründling",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Ähnlich Gründling, lebt in fließenden Gewässern."
+  },
+  {
+    "question": "Güster",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleinere Verwandte der Brachse."
+  },
+  {
+    "question": "Hasel",
+    "answer": "Schonzeit: 01.03.–30.04., kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleine Barbenart, glänzend silbrig."
+  },
+  {
+    "question": "Hecht",
+    "answer": "Schonzeit: 15.02.–30.04., Mindestmaß: 50 cm, Einzugsgebiet: D/E/R/W. Torpedoförmig, Raubfisch mit Entenschnabelmaul."
+  },
+  {
+    "question": "Huchen",
+    "answer": "Schonzeit: 15.02.–30.06., Mindestmaß: 90 cm, Einzugsgebiet: D. Großer lachsartiger Raubfisch, stark gefährdet."
+  },
+  {
+    "question": "Karausche",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Tief gebaut, ohne Barteln, lebt in stehenden Gewässern."
+  },
+  {
+    "question": "Karpfen",
+    "answer": "Keine Schonzeit, Mindestmaß: 35 cm, Einzugsgebiet: D/E/R/W. Mit Barteln, meist hochrückig gezüchtet."
+  },
+  {
+    "question": "Kaulbarsch",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Klein, mit Dornstrahlen, häufig bodennah."
+  },
+  {
+    "question": "Kilch (Ammersee)",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Selten, Coregonenart."
+  },
+  {
+    "question": "Kilch (Bodensee)",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: R. Selten, ebenfalls Coregonenart."
+  },
+  {
+    "question": "Laube",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleine Schwarmfische, silbrig glänzend."
+  },
+  {
+    "question": "Maifisch",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Wanderfisch, platt gedrückt."
+  },
+  {
+    "question": "Mairenke",
+    "answer": "Schonzeit: 01.05.–30.06., kein Mindestmaß, Einzugsgebiet: D. Ähnlich Rotfeder, lebt in Flüssen."
+  },
+  {
+    "question": "Meerforelle",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Wanderform der Bachforelle, lebt im Meer."
+  },
+  {
+    "question": "Moderlieschen",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: E/R/W. Sehr klein, oberflächenorientiert."
+  },
+  {
+    "question": "Mühlkoppe",
+    "answer": "Schonzeit: 01.02.–30.04., kein Mindestmaß, Einzugsgebiet: D/E/R/W. Breiter Kopf, lebt auf Steinen."
+  },
+  {
+    "question": "Nordseeschnäpel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Wanderfisch, lachsartig."
+  },
+  {
+    "question": "Nase",
+    "answer": "Schonzeit: 01.03.–30.04., Mindestmaß: 30 cm, Einzugsgebiet: D/E/R/W. Unterständiges Maul, lebt an kiesigen Flussabschnitten."
+  },
+  {
+    "question": "Nerfling",
+    "answer": "Schonzeit: 01.03.–30.04., Mindestmaß: 30 cm, Einzugsgebiet: D/E/R/W. Auch Aland genannt, ähnelt Döbel."
+  },
+  {
+    "question": "Perlfisch",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Sehr selten, mit Perlmuttschimmer."
+  },
+  {
+    "question": "Regenbogenforelle",
+    "answer": "Schonzeit: 15.12.–15.03., Mindestmaß: 26 cm, Einzugsgebiet: D/E/R/W. Pinkes Seitenband, Zuchtform."
+  },
+  {
+    "question": "Renke (Felchen)",
+    "answer": "Schonzeit: 15.10.–31.12., Mindestmaß: 30 cm, Einzugsgebiet: D/E/R/W. Coregonenart, tiefenliebend."
+  },
+  {
+    "question": "Rotauge",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Rotes Auge, Rückenflosse mittig."
+  },
+  {
+    "question": "Rotfeder",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Rückenflosse weit hinten, rötliche Flossen."
+  },
+  {
+    "question": "Rutte (Quappe)",
+    "answer": "Keine Schonzeit, Mindestmaß: 40 cm, Einzugsgebiet: D/E/R/W. Einziger dorsale Kabeljauverwandter im Süßwasser."
+  },
+  {
+    "question": "Schied (Rapfen)",
+    "answer": "Schonzeit: 01.03.–30.04., Mindestmaß: 40 cm, Einzugsgebiet: D/R. Raubfisch, torpedoförmig, silbrig glänzend."
+  },
+  {
+    "question": "Schlammpeitzger",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Aalartig, mit Barteln, gräbt sich bei Trockenheit ein."
+  },
+  {
+    "question": "Schleie",
+    "answer": "Schonzeit: 01.05.–30.06., Mindestmaß: 26 cm, Einzugsgebiet: D/E/R/W. Grünlich-goldener Körper, kleine Schuppen, dicke Schleimschicht."
+  },
+  {
+    "question": "Schmerle",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Kleiner Bodenfisch mit Barteln."
+  },
+  {
+    "question": "Schneider",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Kleine Cyprinide, silbrig."
+  },
+  {
+    "question": "Schrätzer",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Flacher Körper, große Schuppen, selten."
+  },
+  {
+    "question": "Seeforelle",
+    "answer": "Schonzeit: 01.10.–15.03., Mindestmaß: 60 cm, Einzugsgebiet: D/R. Wanderform der Bachforelle, silbrig, schwarze Punkte."
+  },
+  {
+    "question": "Seesaibling",
+    "answer": "Schonzeit: 01.10.–31.12., Mindestmaß: 30 cm, Einzugsgebiet: D. Blassrosa Bauch, gesprenkelte Flanken."
+  },
+  {
+    "question": "Stichling",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Rückenstacheln, kleine Körpergröße."
+  },
+  {
+    "question": "Stichling (dreistachelig)",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: E/R/W. Drei Rückenstacheln, Brutpflege durch Männchen."
+  },
+  {
+    "question": "Stichling (neunstachelig)",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Neun Rückenstacheln, selten."
+  },
+  {
+    "question": "Steinbeißer",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Schlanker Bodenfisch mit Barteln."
+  },
+  {
+    "question": "Stör",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Knochenplatten auf Rücken, spitzes Maul."
+  },
+  {
+    "question": "Steingreßling",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Kleine Barbenart, lebt bodennah."
+  },
+  {
+    "question": "Sterlet",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Kleiner Stör mit Barteln und spitzem Rüssel."
+  },
+  {
+    "question": "Streber",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Kleiner Grundelverwandter mit Längsstreifen."
+  },
+  {
+    "question": "Strömer",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/R. Zierlicher Schwarmfisch mit heller Seitenlinie."
+  },
+  {
+    "question": "Wels",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D. Sehr groß, barteltragend, nachtaktiv."
+  },
+  {
+    "question": "Zander",
+    "answer": "Schonzeit: 15.02.–30.04., Mindestmaß: 50 cm, Einzugsgebiet: D/E/R/W. Langgestreckter Körper, glasige Augen, Raubfisch."
+  },
+  {
+    "question": "Zährte (Seerüssling)",
+    "answer": "Keine Schonzeit, kein Mindestmaß, Einzugsgebiet: D/E/R/W. Schlanker, langgestreckter Körper."
+  },
+  {
+    "question": "Zingel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Bodenorientierter, seltener Fisch."
+  },
+  {
+    "question": "Zobel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Seltene Kleinfischart der Donau."
+  },
+  {
+    "question": "Zope",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Flacher Körper, kleine Maulspalte."
+  },
+  {
+    "question": "Bachneunauge",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Rundes Maul, saugt sich an Steinen fest."
+  },
+  {
+    "question": "Donau-Neunauge",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D. Ähnlich Bachneunauge, größer."
+  },
+  {
+    "question": "Flussneunauge",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Länglicher Körper, saugender Parasit."
+  },
+  {
+    "question": "Meerneunauge",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: E/R/W. Größte Neunaugenart, parasitär."
+  },
+  {
+    "question": "Edelkrebs (männlich)",
+    "answer": "Keine Schonzeit, Mindestmaß: 12 cm, Einzugsgebiet: D/E/R/W. Große Scheren, glatte Oberfläche."
+  },
+  {
+    "question": "Edelkrebs (weiblich)",
+    "answer": "Schonzeit: 01.10.–31.07., Mindestmaß: 12 cm, Einzugsgebiet: D/E/R/W. Breiter Hinterleib für Eiablage."
+  },
+  {
+    "question": "Steinkrebs",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Kleiner, kompakter Flusskrebs, selten."
+  },
+  {
+    "question": "Große Flussmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Große, dunkle Schale, lebt eingegraben."
+  },
+  {
+    "question": "Kleine Flussmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Kleinere Variante mit flacherem Gehäuse."
+  },
+  {
+    "question": "Flussperlmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Extrem selten, wichtige Wasserreiniger."
+  },
+  {
+    "question": "Malermuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Kleine Muschel, elliptische Form."
+  },
+  {
+    "question": "Abgeplattete Teichmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Flaches, langgezogenes Gehäuse."
+  },
+  {
+    "question": "Gemeine Teichmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Häufige Art, ovales Gehäuse."
+  },
+  {
+    "question": "Große Teichmuschel",
+    "answer": "Ganzjährig geschont, Einzugsgebiet: D/E/R/W. Größte einheimische Muschelart."
+  }
+]

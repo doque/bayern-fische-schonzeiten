@@ -1,4 +1,66 @@
+# macOS
 .DS_Store
-fisch_bilder
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Generated files
+fisch_bilder/
 *.pdf
+*.csv
+*.json.bak
 *.doc
+*.docx
+
+# Temporary files
+*.tmp
+*.temp
+repetico_output.json
+
+# Logs
+*.log
+
+# Cache
+.cache/

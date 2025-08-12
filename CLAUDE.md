@@ -4,57 +4,136 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Schonzeiten** is a Python-based fish identification training system that generates flashcards for learning fish species, their closed seasons (Schonzeiten), and minimum sizes in Bavaria, Germany.
+**Schonzeiten** is a Python-based fish identification training system that generates flashcards for learning fish species, their closed seasons (Schonzeiten), and minimum sizes in Bavaria, Germany. The project has been reorganized with a unified generation system and clean folder structure.
 
 ## Development Commands
 
 ```bash
-# Install dependencies
-pip install fpdf2 pillow duckduckgo_search
+# Install all dependencies
+pip install -r requirements.txt
 
-# Generate flashcards and fetch fish images
-python fetch.py
+# Install core dependencies only (minimal setup)
+pip install fpdf2 pillow ddgs requests
 
-# Convert JSON data to CSV format
-python convert_json_to_csv.py input.json output.csv
+# Run the main interactive generator
+python generate.py
+
+# Test functionality with sample data
+python test_generate.py
 ```
 
 ## Architecture
 
-### Core Components
+### Reorganized File Structure
 
-- **`fetch.py`** - Main application that generates PDF flashcards and fetches fish images from DuckDuckGo
-- **`convert_json_to_csv.py`** - Converts JSON fish data to CSV format for import into other flashcard systems
-- **`fische.json`** - Primary data source containing 321 fish entries with questions/answers
-- **`fisch_bilder/`** - Directory containing fish images (82 images)
+- **`generate.py`** - Unified generation script with interactive menu system
+- **`data/fish_data.json`** - Single comprehensive data source (321+ fish entries)
+- **`config/poor_quality_images.txt`** - Quality control file (renamed from shit.txt)
+- **`images/fish_images/`** - Auto-managed directory for downloaded fish images
+- **`output/`** - All generated files (PDFs, CSVs, JSONs) organized by type
+- **`test_generate.py`** - Development testing script for core functionality
 
-### Data Flow
+### Unified Generation System
 
-1. Fish data is stored in JSON format with question/answer structure
-2. Images are fetched from DuckDuckGo search with quality validation (500x300px minimum)
-3. PDF flashcards are generated with front-side images and back-side text
-4. Data can be exported to CSV for import into other platforms (Repetico/Anki)
+The new `FishGenerator` class provides a single interface for all output formats:
+
+1. **Interactive Menu**: Command-line interface with 7 generation options
+2. **Smart Filtering**: Automatic Schonzeit filtering based on answer text analysis
+3. **Multi-format Output**: PDF, CSV, and Repetico JSON generation from single codebase
+4. **Quality Control Integration**: Seamless image replacement workflow
+
+### Data Processing Pipeline
+
+**Three-stage architecture maintained with improvements:**
+
+1. **Data Loading**: Single JSON source with UTF-8 encoding for German characters
+2. **Optional Filtering**: Schonzeit detection logic (`"Schonzeit:" in answer AND "Ganzjährig geschont" not in answer`)
+3. **Format Generation**: Multi-format output with proper path management
 
 ### Image Management System
 
-- **Quality Control**: `shit.txt` contains fish names with unsatisfactory images
-- **Smart Replacement**: Running `fetch.py` after adding entries to `shit.txt` searches for better alternatives
-- **Duplicate Prevention**: Uses SHA-256 hashing and MSE similarity detection
-- **Retry Logic**: 3 attempts with exponential backoff for failed image downloads
+**Enhanced quality control system:**
 
-### Output Formats
+- **Centralized Configuration**: `config/poor_quality_images.txt` replaces previous naming
+- **Automated Workflow**: Add fish names → run generator → auto-removal on success
+- **Quality Validation**: 500x300px minimum, SHA-256 deduplication, MSE similarity (<10)
+- **Resilient Fetching**: 3-attempt retry with exponential backoff, random shuffling
 
-- **PDF**: 20-page flashcard document with 8 cards per page (4x2 grid)
-- **CSV**: Import format with German date normalization (DD.MM. bis DD.MM.)
-- **JSON**: Various export formats for different platforms
+### Output Management
 
-## Key Patterns
+**Organized output structure:**
+- **PDF Files**: `alle_fische_karteikarten.pdf`, `schonzeit_fische_karteikarten.pdf`
+- **CSV Files**: `alle_fische.csv`, `schonzeit_fische.csv`
+- **JSON Files**: `alle_fische_repetico.json`, `schonzeit_fische_repetico.json`
 
-- German language throughout (comments, output, data)
-- RegEx-based parsing of fish information with fallback handling
-- Modular design separating data processing from presentation
-- Comprehensive error handling for web scraping and file operations
+## Generation Options
+
+### Interactive Menu System
+
+The `generate.py` script uses a **two-step interactive process**:
+
+**Step 1 - Fish Selection:**
+1. **All Fish (80)**: Complete dataset  
+2. **Ganzjährig geschont (41)**: Year-round protected fish
+3. **Schonzeit/Mindestmaß (23)**: Fish with specific regulations
+
+**Step 2 - Format Selection:**
+1. **PDF Karteikarten**: Print-ready flashcards
+2. **CSV für Repetico/Anki**: Import-ready format 
+3. **JSON für Repetico**: Native Repetico format
+4. **Alle Formate**: Generate all three formats
+
+### Fish Filtering System
+
+**Three-tier filtering approach:**
+
+1. **All Fish (80 entries)** - Complete dataset
+2. **Ganzjährig geschont (41 entries)** - Year-round protected fish
+3. **Schonzeit/Mindestmaß (23 entries)** - Fish with regulations
+
+**Filtering Algorithms:**
+```python
+def filter_fish_ganzjaehrig_geschont(self):
+    # Fish protected year-round
+    return [fish for fish in self.fish_data 
+            if "Ganzjährig geschont" in fish["answer"]]
+
+def filter_fish_with_schonzeit(self):
+    # Fish with closed seasons or minimum sizes (excludes year-round protected)
+    return [fish for fish in self.fish_data 
+            if ("Schonzeit:" in fish["answer"] or "Mindestmaß:" in fish["answer"]) 
+            and "Ganzjährig geschont" not in fish["answer"]]
+```
+
+## Key Implementation Patterns
+
+### Class-based Architecture
+- **Single Responsibility**: `FishGenerator` class handles all generation logic
+- **Path Management**: Centralized directory and file path handling
+- **Error Recovery**: Graceful handling of missing files, network issues
+
+### German Text Processing
+- **Date Normalization**: RegEx patterns for `(\d{2}\.\d{2})[–-](\d{2}\.\d{2})` → `DD.MM. bis DD.MM.`
+- **Special Cases**: "Ganzjährig geschont" detection and handling
+- **UTF-8 Throughout**: Proper German character support in all formats
+
+### Multi-format Export
+- **PDF**: Double-sided flashcard layout with image/text separation
+- **CSV**: Platform-compatible with HTML line breaks (`<br/>`) 
+- **JSON**: Repetico-native format with proper newline conversion
+
+### Quality Control Integration
+- **Automated List Management**: Poor quality entries auto-removed on successful replacement
+- **Status Reporting**: Clear feedback on image fetch success/failure
+- **Batch Processing**: Continue processing when individual items fail
 
 ## Development Context
 
-This is a specialized educational tool for German fishing enthusiasts. The codebase combines web scraping, image processing, and PDF generation to create study materials for fish identification and fishing regulations in Bavaria.
+This is a specialized educational tool for German fishing license preparation. The reorganized structure provides:
+
+- **Single Entry Point**: `generate.py` for all generation needs
+- **Clean Organization**: Logical separation of data, config, images, and output
+- **Development Friendly**: Easy testing and debugging with `test_generate.py`
+- **User Focused**: Interactive menu system for non-technical users
+
+The codebase combines web scraping, image processing, and multi-format document generation optimized for Bavarian fishing regulation study materials.

@@ -1,133 +1,166 @@
-# Schonzeiten - Fish Learning Flashcards
+# Schonzeiten - Bavarian Fish Regulation Study Tool
 
-A Python application that generates study flashcards for learning fish species, their closed seasons (Schonzeiten), and minimum sizes according to Bavarian fishing regulations.
+A Python application that generates study materials for learning fish species, their closed seasons (Schonzeiten), and minimum sizes according to Bavarian fishing regulations.
 
 ## Features
 
-- **PDF Flashcard Generation**: Creates printable flashcards with fish images on front and regulation details on back
-- **Automatic Image Fetching**: Downloads fish images from DuckDuckGo with quality validation
-- **Smart Image Management**: Prevents duplicates and allows replacement of poor-quality images
-- **Multiple Export Formats**: Supports PDF and CSV export for different learning platforms
-- **Double-sided Print Optimization**: Cards are positioned correctly for double-sided printing and cutting
+- **Unified Generation Script**: Single command-line interface for all output formats
+- **PDF Flashcard Generation**: Creates printable flashcards with fish images and regulation details
+- **Multiple Export Formats**: PDF, CSV, and Repetico JSON formats
+- **Smart Filtering**: Generate materials for all fish or only those with Schonzeiten
+- **Automatic Image Fetching**: Downloads high-quality fish images with validation
+- **Quality Control System**: Manage and replace poor-quality images
+- **Double-sided Print Optimization**: Cards positioned correctly for printing and cutting
 
-## Requirements
+## Quick Start
 
-- Python 3.7+
-- Internet connection (for image fetching)
-
-## Installation
-
-1. **Clone the repository:**
+1. **Install dependencies:**
    ```bash
-   git clone <repository-url>
-   cd schonzeiten
+   pip install -r requirements.txt
    ```
 
-2. **Install required packages:**
+2. **Run the generator:**
    ```bash
-   pip install fpdf2 pillow duckduckgo_search requests openai pygame PyMuPDF numpy
+   python generate.py
    ```
 
-## Usage
-
-### Generate PDF Flashcards
-
-```bash
-python fetch.py
-```
-
-This will:
-- Load fish data from `fische.json`
-- Fetch fish images from DuckDuckGo (if not already downloaded)
-- Generate `fisch_karteikarten.pdf` with flashcards optimized for double-sided printing
-
-### Convert Data to CSV
-
-```bash
-python convert_json_to_csv.py input.json output.csv
-```
-
-Converts JSON fish data to CSV format for import into flashcard applications like Anki or Repetico.
-
-## Data Structure
-
-### Input Data (`fische.json`)
-The main data file contains fish information in the following format:
-```json
-[
-  {
-    "question": "Aal",
-    "answer": "Schonzeit: 01.12.–28.02., Mindestmaß: 50 cm, Einzugsgebiet: D/E/R/W. Description..."
-  }
-]
-```
-
-### Output Files
-- **`fisch_karteikarten.pdf`**: 20-page PDF with 8 flashcards per page (4×2 grid)
-- **`import.csv`**: CSV format with normalized German date formats
-- **`fisch_bilder/`**: Directory containing downloaded fish images
-
-## Image Quality Management
-
-### Automatic Image Fetching
-- Images are automatically downloaded with minimum size requirements (500×300px)
-- Duplicate detection using SHA-256 hashing
-- Similar image detection using Mean Square Error (MSE)
-
-### Manual Quality Control
-1. Add fish names with poor images to `shit.txt` (one per line)
-2. Run `python fetch.py` again
-3. The script will search for better alternatives
-4. Successfully replaced images are automatically removed from `shit.txt`
-
-Example `shit.txt`:
-```
-Aal
-Barsch
-Hecht
-```
-
-## Double-sided Printing
-
-The PDF is optimized for double-sided printing:
-1. Print the PDF double-sided (flip on long edge)
-2. Cut along the card boundaries
-3. Each card will have the fish image on one side and regulation details on the other
+3. **Choose your output format** from the interactive menu
 
 ## Project Structure
 
 ```
 schonzeiten/
-├── fetch.py                 # Main flashcard generator
-├── convert_json_to_csv.py   # Data conversion utility
-├── fische.json             # Fish data (321 entries)
-├── shit.txt                # List of fish needing better images
-├── fisch_bilder/           # Downloaded fish images (auto-generated)
-├── fisch_karteikarten.pdf  # Generated flashcards (auto-generated)
-└── import.csv              # CSV export (auto-generated)
+├── generate.py                    # Main generation script with interactive menu
+├── data/
+│   └── fish_data.json            # Primary fish database (321+ entries)
+├── config/
+│   └── poor_quality_images.txt   # Fish names needing better images
+├── images/
+│   └── fish_images/              # Downloaded fish images (auto-managed)
+├── output/                       # Generated files (PDFs, CSVs, JSONs)
+├── requirements.txt              # Python dependencies
+└── README.md
 ```
 
-## Configuration
+## Usage
 
-- **Card Size**: 90×60mm (configured in `fetch.py`)
-- **Image Requirements**: Minimum 500×300px
-- **Retry Logic**: 3 attempts with exponential backoff for failed downloads
-- **Font**: Arial Unicode (system font)
+### Interactive Generation
 
-## Contributing
+The main script provides an interactive menu:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test with a small subset of data
-5. Submit a pull request
+```bash
+python generate.py
+```
 
-## License
+**Two-Step Process:**
 
-This project is designed for educational purposes to help learn Bavarian fishing regulations.
+1. **Fish Selection:**
+   - **Alle Fische** (80 entries) - Complete dataset
+   - **Ganzjährig geschont** (41 entries) - Year-round protected fish
+   - **Schonzeit/Mindestmaß** (23 entries) - Fish with closed seasons or minimum sizes
+
+2. **Format Selection:**
+   - **PDF Karteikarten** - Print-ready flashcards
+   - **CSV für Repetico/Anki** - Import format for flashcard apps
+   - **JSON für Repetico** - Native Repetico format
+   - **Alle Formate** - Generate all three formats
+
+### Output Files
+
+All generated files are saved in the `output/` directory with descriptive names:
+
+- **PDF Files**: `alle_fische_karteikarten.pdf`, `ganzjaehrig_geschont_karteikarten.pdf`, `schonzeit_mindestmass_karteikarten.pdf`
+- **CSV Files**: `alle_fische_repetico.csv`, `ganzjaehrig_geschont_repetico.csv`, `schonzeit_mindestmass_repetico.csv`
+- **JSON Files**: `alle_fische_repetico.json`, `ganzjaehrig_geschont_repetico.json`, `schonzeit_mindestmass_repetico.json`
+
+## Data Management
+
+### Primary Data Source
+
+- **`data/fish_data.json`**: Single comprehensive database with 321+ fish entries
+- **Format**: `{"question": "Fish Name", "answer": "Regulations and description"}`
+- **Encoding**: UTF-8 for proper German character support
+
+### Image Quality Control
+
+1. **Add problem fish** to `config/poor_quality_images.txt` (one name per line)
+2. **Run generator** - it will automatically search for better images
+3. **Successful replacements** are automatically removed from the list
+
+**Image Requirements:**
+- Minimum size: 500×300 pixels
+- Automatic duplicate detection (SHA-256 hashing)
+- Visual similarity filtering (MSE < 10)
+- 3-attempt retry logic with exponential backoff
+
+### Fish Filtering Options
+
+**Ganzjährig geschont (41 fish):**
+- Fish that are protected year-round
+- Identified by "Ganzjährig geschont" in the answer text
+- Cannot be caught at any time
+
+**Schonzeit/Mindestmaß (23 fish):**  
+- Fish with closed seasons or minimum size requirements
+- Identified by "Schonzeit:" OR "Mindestmaß:" in answer text
+- Excludes year-round protected fish
+- These are the fish with specific regulations to learn
+
+## PDF Flashcard Details
+
+- **Card Size**: 90×60mm with 10mm margins
+- **Layout**: 8 cards per page (4×2 grid), ~20 pages total
+- **Double-sided**: Front (images) and back (text) with mirrored layout for cutting
+- **Font**: Arial Unicode for German characters
+- **Print Instructions**: 
+  1. Print double-sided (flip on long edge)
+  2. Cut along card boundaries
+  3. Each card has image on one side, regulations on the other
+
+## Export Formats
+
+### CSV Format
+- Compatible with Anki, Repetico, and other flashcard systems
+- German date normalization: `DD.MM. bis DD.MM.`
+- HTML line breaks for multi-line content
+- Structured: `Fish Name, Regulation Details`
+
+### Repetico JSON
+- Native format for Repetico flashcard platform
+- Proper newline formatting for multi-line answers
+- Direct import compatibility
+
+## Requirements
+
+- **Python**: 3.7+
+- **Internet**: Required for image downloading
+- **Font**: Arial Unicode (system font for German characters)
+- **Dependencies**: See `requirements.txt`
+
+## Development
+
+### Core Dependencies
+```bash
+pip install fpdf2 pillow ddgs requests
+```
+
+### Testing Individual Functions
+```bash
+python test_generate.py  # Test core functionality
+```
 
 ## Troubleshooting
 
-- **Missing images**: Check internet connection and try running `fetch.py` again
-- **PDF generation fails**: Ensure Arial Unicode font is available on your system
-- **Poor image quality**: Add fish names to `shit.txt` and regenerate
+- **Missing images**: Check internet connection, images will be fetched automatically
+- **PDF generation errors**: Ensure Arial Unicode font is available
+- **Poor image quality**: Add fish names to `config/poor_quality_images.txt`
+- **Import issues**: Check file encoding (should be UTF-8)
+
+## Educational Context
+
+This tool is designed for German fishing license preparation, focusing on:
+- Fish species identification
+- Bavarian fishing regulation compliance  
+- Schonzeit (closed season) awareness
+- Minimum size requirements (Mindestmaß)
+- Regional fishing area classifications (D/E/R/W)

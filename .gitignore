@@ -46,13 +46,24 @@ venv.bak/
 *.swo
 *~
 
-# Generated files
+# Generated files and binary data
+images/
+output/
 fisch_bilder/
 *.pdf
 *.csv
 *.json.bak
 *.doc
 *.docx
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.webp
+*.svg
 
 # Temporary files
 *.tmp

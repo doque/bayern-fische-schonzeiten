@@ -117,10 +117,12 @@ for i in range(0, len(data), 8):
             pdf.image(img_path, x+2, y+2, w=card_w-4, h=card_h-4)
         pdf.rect(x, y, card_w, card_h)
 
-    # Rückseite
+    # Rückseite (gespiegelt für doppelseitigen Druck)
     pdf.add_page()
     for idx, entry in enumerate(batch):
         row, col = divmod(idx, 2)
+        # Spalte spiegeln für doppelseitigen Druck
+        col = 1 - col
         x = margin_x + col * (card_w + 10)
         y = margin_y + row * (card_h + 10)
         pdf.set_xy(x + 2, y + 2)

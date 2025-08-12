@@ -1,166 +1,166 @@
-# Schonzeiten - Bavarian Fish Regulation Study Tool
+# Schonzeiten - Bayerische Fischarten Lernhilfe
 
-A Python application that generates study materials for learning fish species, their closed seasons (Schonzeiten), and minimum sizes according to Bavarian fishing regulations.
+Eine Python-Anwendung zur Erstellung von Lernmaterialien für Fischarten, ihre Schonzeiten und Mindestmaße nach bayerischen Fischereiverordnungen.
 
 ## Features
 
-- **Unified Generation Script**: Single command-line interface for all output formats
-- **PDF Flashcard Generation**: Creates printable flashcards with fish images and regulation details
-- **Multiple Export Formats**: PDF, CSV, and Repetico JSON formats
-- **Smart Filtering**: Generate materials for all fish or only those with Schonzeiten
-- **Automatic Image Fetching**: Downloads high-quality fish images with validation
-- **Quality Control System**: Manage and replace poor-quality images
-- **Double-sided Print Optimization**: Cards positioned correctly for printing and cutting
+- **Einheitliches Generierungsskript**: Einzige Benutzeroberfläche für alle Ausgabeformate
+- **PDF-Karteikarten-Generierung**: Erstellt druckbare Karteikarten mit Fischbildern und Verordnungsdetails
+- **Mehrere Export-Formate**: PDF-, CSV- und Repetico-JSON-Formate
+- **Intelligente Filterung**: Materialien für alle Fische oder nur solche mit Schonzeiten generieren
+- **Automatisches Bildladen**: Lädt hochqualitative Fischbilder mit Validierung herunter
+- **Qualitätskontrollsystem**: Verwaltung und Austausch von Bildern schlechter Qualität
+- **Doppelseitiger Druckoptimierung**: Karten korrekt für Drucken und Schneiden positioniert
 
-## Quick Start
+## Schnellstart
 
-1. **Install dependencies:**
+1. **Abhängigkeiten installieren:**
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Run the generator:**
+2. **Generator starten:**
    ```bash
    python generate.py
    ```
 
-3. **Choose your output format** from the interactive menu
+3. **Ausgabeformat wählen** aus dem interaktiven Menü
 
-## Project Structure
+## Projektstruktur
 
 ```
 schonzeiten/
-├── generate.py                    # Main generation script with interactive menu
+├── generate.py                    # Haupt-Generierungsskript mit interaktivem Menü
 ├── data/
-│   └── fish_data.json            # Primary fish database (321+ entries)
+│   └── fish_data.json            # Primäre Fischdatenbank (321+ Einträge)
 ├── config/
-│   └── poor_quality_images.txt   # Fish names needing better images
+│   └── poor_quality_images.txt   # Fischnamen, die bessere Bilder benötigen
 ├── images/
-│   └── fish_images/              # Downloaded fish images (auto-managed)
-├── output/                       # Generated files (PDFs, CSVs, JSONs)
-├── requirements.txt              # Python dependencies
+│   └── fish_images/              # Heruntergeladene Fischbilder (automatisch verwaltet)
+├── output/                       # Generierte Dateien (PDFs, CSVs, JSONs)
+├── requirements.txt              # Python-Abhängigkeiten
 └── README.md
 ```
 
-## Usage
+## Nutzung
 
-### Interactive Generation
+### Interaktive Generierung
 
-The main script provides an interactive menu:
+Das Hauptskript bietet ein interaktives Menü:
 
 ```bash
 python generate.py
 ```
 
-**Two-Step Process:**
+**Zweistufiger Prozess:**
 
-1. **Fish Selection:**
-   - **Alle Fische** (80 entries) - Complete dataset
-   - **Ganzjährig geschont** (41 entries) - Year-round protected fish
-   - **Schonzeit/Mindestmaß** (23 entries) - Fish with closed seasons or minimum sizes
+1. **Fischauswahl:**
+   - **Alle Fische** (80 Einträge) - Kompletter Datensatz
+   - **Ganzjährig geschont** (41 Einträge) - Ganzjährig geschützte Fische
+   - **Schonzeit/Mindestmaß** (23 Einträge) - Fische mit Schonzeiten oder Mindestmaßen
 
-2. **Format Selection:**
-   - **PDF Karteikarten** - Print-ready flashcards
-   - **CSV für Repetico/Anki** - Import format for flashcard apps
-   - **JSON für Repetico** - Native Repetico format
-   - **Alle Formate** - Generate all three formats
+2. **Formatauswahl:**
+   - **PDF Karteikarten** - Druckfertige Karteikarten
+   - **CSV für Repetico/Anki** - Importformat für Karteikarten-Apps
+   - **JSON für Repetico** - Natives Repetico-Format
+   - **Alle Formate** - Alle drei Formate generieren
 
-### Output Files
+### Ausgabedateien
 
-All generated files are saved in the `output/` directory with descriptive names:
+Alle generierten Dateien werden im `output/`-Verzeichnis mit beschreibenden Namen gespeichert:
 
-- **PDF Files**: `alle_fische_karteikarten.pdf`, `ganzjaehrig_geschont_karteikarten.pdf`, `schonzeit_mindestmass_karteikarten.pdf`
-- **CSV Files**: `alle_fische_repetico.csv`, `ganzjaehrig_geschont_repetico.csv`, `schonzeit_mindestmass_repetico.csv`
-- **JSON Files**: `alle_fische_repetico.json`, `ganzjaehrig_geschont_repetico.json`, `schonzeit_mindestmass_repetico.json`
+- **PDF-Dateien**: `alle_fische_karteikarten.pdf`, `ganzjaehrig_geschont_karteikarten.pdf`, `schonzeit_mindestmass_karteikarten.pdf`
+- **CSV-Dateien**: `alle_fische_repetico.csv`, `ganzjaehrig_geschont_repetico.csv`, `schonzeit_mindestmass_repetico.csv`
+- **JSON-Dateien**: `alle_fische_repetico.json`, `ganzjaehrig_geschont_repetico.json`, `schonzeit_mindestmass_repetico.json`
 
-## Data Management
+## Datenmanagement
 
-### Primary Data Source
+### Primäre Datenquelle
 
-- **`data/fish_data.json`**: Single comprehensive database with 321+ fish entries
-- **Format**: `{"question": "Fish Name", "answer": "Regulations and description"}`
-- **Encoding**: UTF-8 for proper German character support
+- **`data/fish_data.json`**: Einzige umfassende Datenbank mit 321+ Fischeinträgen
+- **Format**: `{"question": "Fischname", "answer": "Verordnungen und Beschreibung"}`
+- **Kodierung**: UTF-8 für ordnungsgemäße deutsche Zeichenunterstützung
 
-### Image Quality Control
+### Bildqualitätskontrolle
 
-1. **Add problem fish** to `config/poor_quality_images.txt` (one name per line)
-2. **Run generator** - it will automatically search for better images
-3. **Successful replacements** are automatically removed from the list
+1. **Problemfische hinzufügen** zu `config/poor_quality_images.txt` (ein Name pro Zeile)
+2. **Generator ausführen** - er sucht automatisch nach besseren Bildern
+3. **Erfolgreiche Ersetzungen** werden automatisch aus der Liste entfernt
 
-**Image Requirements:**
-- Minimum size: 500×300 pixels
-- Automatic duplicate detection (SHA-256 hashing)
-- Visual similarity filtering (MSE < 10)
-- 3-attempt retry logic with exponential backoff
+**Bildanforderungen:**
+- Mindestgröße: 500×300 Pixel
+- Automatische Duplikatserkennung (SHA-256-Hashing)
+- Visuelle Ähnlichkeitsfilterung (MSE < 10)
+- 3-Versuch-Wiederholungslogik mit exponentieller Verzögerung
 
-### Fish Filtering Options
+### Fischfilteroptionen
 
-**Ganzjährig geschont (41 fish):**
-- Fish that are protected year-round
-- Identified by "Ganzjährig geschont" in the answer text
-- Cannot be caught at any time
+**Ganzjährig geschont (41 Fische):**
+- Fische, die ganzjährig geschützt sind
+- Identifiziert durch "Ganzjährig geschont" im Antworttext
+- Können zu keiner Zeit gefangen werden
 
-**Schonzeit/Mindestmaß (23 fish):**  
-- Fish with closed seasons or minimum size requirements
-- Identified by "Schonzeit:" OR "Mindestmaß:" in answer text
-- Excludes year-round protected fish
-- These are the fish with specific regulations to learn
+**Schonzeit/Mindestmaß (23 Fische):**  
+- Fische mit Schonzeiten oder Mindestmaßanforderungen
+- Identifiziert durch "Schonzeit:" ODER "Mindestmaß:" im Antworttext
+- Schließt ganzjährig geschützte Fische aus
+- Das sind die Fische mit spezifischen Verordnungen zum Lernen
 
-## PDF Flashcard Details
+## PDF-Karteikarten Details
 
-- **Card Size**: 90×60mm with 10mm margins
-- **Layout**: 8 cards per page (4×2 grid), ~20 pages total
-- **Double-sided**: Front (images) and back (text) with mirrored layout for cutting
-- **Font**: Arial Unicode for German characters
-- **Print Instructions**: 
-  1. Print double-sided (flip on long edge)
-  2. Cut along card boundaries
-  3. Each card has image on one side, regulations on the other
+- **Kartengröße**: 90×60mm mit 10mm Rändern
+- **Layout**: 8 Karten pro Seite (4×2 Raster), ~20 Seiten insgesamt
+- **Doppelseitig**: Vorderseite (Bilder) und Rückseite (Text) mit gespiegeltem Layout zum Schneiden
+- **Schrift**: Arial Unicode für deutsche Zeichen
+- **Druckanweisungen**: 
+  1. Doppelseitig drucken (an langer Kante wenden)
+  2. Entlang der Kartengrenzen schneiden
+  3. Jede Karte hat Bild auf einer Seite, Verordnungen auf der anderen
 
-## Export Formats
+## Export-Formate
 
-### CSV Format
-- Compatible with Anki, Repetico, and other flashcard systems
-- German date normalization: `DD.MM. bis DD.MM.`
-- HTML line breaks for multi-line content
-- Structured: `Fish Name, Regulation Details`
+### CSV-Format
+- Kompatibel mit Anki, Repetico und anderen Karteikarten-Systemen
+- Deutsche Datumsnormalisierung: `DD.MM. bis DD.MM.`
+- HTML-Zeilenumbrüche für mehrzeilige Inhalte
+- Struktur: `Fischname, Verordnungsdetails`
 
 ### Repetico JSON
-- Native format for Repetico flashcard platform
-- Proper newline formatting for multi-line answers
-- Direct import compatibility
+- Natives Format für die Repetico-Karteikarten-Plattform
+- Ordnungsgemäße Zeilenschaltungsformatierung für mehrzeilige Antworten
+- Direkte Import-Kompatibilität
 
-## Requirements
+## Anforderungen
 
 - **Python**: 3.7+
-- **Internet**: Required for image downloading
-- **Font**: Arial Unicode (system font for German characters)
-- **Dependencies**: See `requirements.txt`
+- **Internet**: Erforderlich für Bild-Download
+- **Schrift**: Arial Unicode (Systemschrift für deutsche Zeichen)
+- **Abhängigkeiten**: Siehe `requirements.txt`
 
-## Development
+## Entwicklung
 
-### Core Dependencies
+### Kern-Abhängigkeiten
 ```bash
 pip install fpdf2 pillow ddgs requests
 ```
 
-### Testing Individual Functions
+### Einzelne Funktionen testen
 ```bash
-python test_generate.py  # Test core functionality
+python test_generate.py  # Kernfunktionalität testen
 ```
 
-## Troubleshooting
+## Fehlerbehebung
 
-- **Missing images**: Check internet connection, images will be fetched automatically
-- **PDF generation errors**: Ensure Arial Unicode font is available
-- **Poor image quality**: Add fish names to `config/poor_quality_images.txt`
-- **Import issues**: Check file encoding (should be UTF-8)
+- **Fehlende Bilder**: Internetverbindung prüfen, Bilder werden automatisch abgerufen
+- **PDF-Generierungsfehler**: Sicherstellen, dass Arial Unicode-Schrift verfügbar ist
+- **Schlechte Bildqualität**: Fischnamen zu `config/poor_quality_images.txt` hinzufügen
+- **Import-Probleme**: Dateikodierung prüfen (sollte UTF-8 sein)
 
-## Educational Context
+## Bildungskontext
 
-This tool is designed for German fishing license preparation, focusing on:
-- Fish species identification
-- Bavarian fishing regulation compliance  
-- Schonzeit (closed season) awareness
-- Minimum size requirements (Mindestmaß)
-- Regional fishing area classifications (D/E/R/W)
+Dieses Tool ist für die deutsche Fischerprüfungsvorbereitung konzipiert und konzentriert sich auf:
+- Fischartenerkennung
+- Einhaltung bayerischer Fischereiverordnungen
+- Schonzeit-Bewusstsein
+- Mindestmaßanforderungen (Mindestmaß)
+- Regionale Fischereigebietsklassifizierungen (D/E/R/W)
